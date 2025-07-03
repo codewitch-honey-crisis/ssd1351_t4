@@ -94,7 +94,6 @@ void ssd1351_t4::initialize(void) {
 		if (numArgs) write_data_last(*addr++); //   Read, issue argument - wait until this one completes
 	}
 	end_transaction();
-    rotation(0);
 }
 void ssd1351_t4::write_address_window(int x1, int y1, int x2, int y2) {
     write_command_last(SSD1351_CMD_SETCOLUMN); // Column addr set
@@ -109,7 +108,6 @@ void ssd1351_t4::set_rotation(int value) {
     begin_transaction();
     uint8_t madctl = 0b01100100;//0b01100100; // 64K, enable split, CBA
   	int r = value & 3; // Clip input to valid range
-
 	switch(r) {
 	case 0:
 	  madctl |= 0x10; // Scan bottom-up
